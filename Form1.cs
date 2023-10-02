@@ -53,6 +53,7 @@ namespace calc {
         }
 
         void onClickEqual(object sender, EventArgs e) {
+            if (num2 == "") return;
             calc(ref res, num1, op, num2);
             updateAllAfterCalc();
         }
