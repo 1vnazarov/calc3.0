@@ -21,7 +21,6 @@ namespace calc {
             else {
                 num2 += button.Text;
             }
-            isNum1 = !isNum1;
         }
         
         void calc(ref double res, string num1, char op, string num2) {
@@ -45,6 +44,7 @@ namespace calc {
         void onClickOp(object sender, EventArgs e) {
             Button button = (Button)sender;
             op = Convert.ToChar(button.Text);
+            isNum1 = false;
             if (double.TryParse(num1, out _) && double.TryParse(num2, out _)) {
                 calc(ref res, num1, op, num2);
                 updateAllAfterCalc();
