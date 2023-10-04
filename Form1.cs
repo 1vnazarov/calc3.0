@@ -8,11 +8,20 @@ namespace calc {
         public Form1() {
             InitializeComponent();
         }
-        bool isNum1 = true;
-        string num1 = "";
-        string num2 = "";
-        char op = ' ';
-        double res = 0;
+        bool isNum1;
+        string num1;
+        string num2;
+        char op;
+        double res;
+        void init(object sender, EventArgs e) {
+            isNum1 = true;
+            num1 = "";
+            num2 = "";
+            op = ' ';
+            res = 0;
+            textBox_eq.Text = "";
+        }
+
         void onClickNumber(object sender, EventArgs e) {
             Button button = (Button)sender;
             textBox_eq.Text += button.Text;
@@ -62,7 +71,7 @@ namespace calc {
         }
 
         void onClickOp(object sender, EventArgs e) {
-            if (textBox_eq.Text.Last() == ',') return;
+            if (textBox_eq.Text.Length == 0 || textBox_eq.Text.Last() == ',') return;
             Button button = (Button)sender;
             op = Convert.ToChar(button.Text);
             isNum1 = false;
@@ -80,6 +89,7 @@ namespace calc {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
+            init(null, null);
             int startX = textBox_eq.Left;
             int x = startX, y = textBox_eq.Bottom;
             for (int i = 0; i < 10; i++) {
@@ -117,7 +127,7 @@ namespace calc {
             Controls.Add(Button_equal);
             Button_equal.Text = "=";
             Button_equal.Size = new Size(50, 70);
-            Button_equal.Location = new Point(x + 70, y / 3);
+            Button_equal.Location = new Point(x + 70, 105);
             Button_equal.Click += onClickEqual;
 
             Button Button_dot = new Button();
@@ -126,6 +136,13 @@ namespace calc {
             Button_dot.Size = new Size(50, 50);
             Button_dot.Location = new Point(Button_equal.Left, y - Button_dot.Height);
             Button_dot.Click += onClickDot;
+
+            Button Button_C = new Button();
+            Controls.Add(Button_C);
+            Button_C.Text = "C";
+            Button_C.Size = new Size(50, 50);
+            Button_C.Location = new Point(Button_equal.Left, textBox_eq.Bottom);
+            Button_C.Click += init;
 
             Button[] buttons = Controls.OfType<Button>().ToArray();
             for (int i = 0; i < buttons.Length; i++) {
@@ -136,5 +153,8 @@ namespace calc {
             }
         }
 
+        private void Button_C_Click(object sender, EventArgs e) {
+            throw new NotImplementedException();
+        }
     }
 }
