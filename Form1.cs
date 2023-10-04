@@ -2,12 +2,30 @@
 using System.Windows.Forms;
 using System;
 using System.Linq;
+using System.IO;
 
 namespace calc {
     public partial class Form1 : Form {
         public Form1() {
             InitializeComponent();
         }
+
+        string fileWrite(string data) {
+            string filePath = AppDomain.CurrentDomain.BaseDirectory + "/log.txt";
+            string fullData = "";
+            if (data != null) {
+                fullData = DateTime.Now.ToString("hh:mm:ss tt") + "\n" + data + "\n";
+                if (File.Exists(filePath)) fullData = File.ReadAllText(filePath) + fullData;
+            }
+            try {
+                File.WriteAllText(filePath, fullData);
+                return null;
+            }
+            catch (Exception ex) {
+                return ex.Message;
+            }
+        }
+
         bool isNum1;
         string num1;
         string num2;
@@ -64,6 +82,7 @@ namespace calc {
         }
 
         void updateAllAfterCalc() {
+            fileWrite(num1 + op + num2);
             textBox_eq.Text = res.ToString();
             num1 = res.ToString();
             num2 = "";
@@ -89,6 +108,7 @@ namespace calc {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
+            fileWrite(null);
             init(null, null);
             int startX = textBox_eq.Left;
             int x = startX, y = textBox_eq.Bottom;
