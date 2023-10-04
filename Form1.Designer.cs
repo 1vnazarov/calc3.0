@@ -28,11 +28,11 @@
             // 
             // textBox_eq
             // 
-            this.textBox_eq.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.textBox_eq.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.textBox_eq.Location = new System.Drawing.Point(12, 12);
             this.textBox_eq.Name = "textBox_eq";
             this.textBox_eq.ReadOnly = true;
-            this.textBox_eq.Size = new System.Drawing.Size(195, 26);
+            this.textBox_eq.Size = new System.Drawing.Size(195, 29);
             this.textBox_eq.TabIndex = 0;
             // 
             // Form1

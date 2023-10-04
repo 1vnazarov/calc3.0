@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using System;
+using System.Linq;
 
 namespace calc {
     public partial class Form1 : Form {
@@ -21,6 +22,11 @@ namespace calc {
             else {
                 num2 += button.Text;
             }
+        }
+
+        void onClickDot(object sender, EventArgs e) {
+            if (textBox_eq.Text.Length == 0 || textBox_eq.Text.Contains(",")) return;
+            onClickNumber(sender, e);
         }
 
         void MouseEnter(object sender, EventArgs e)
@@ -56,6 +62,7 @@ namespace calc {
         }
 
         void onClickOp(object sender, EventArgs e) {
+            if (textBox_eq.Text.Last() == ',') return;
             Button button = (Button)sender;
             op = Convert.ToChar(button.Text);
             isNum1 = false;
@@ -67,7 +74,7 @@ namespace calc {
         }
 
         void onClickEqual(object sender, EventArgs e) {
-            if (num2 == "") return;
+            if (num2 == "" || textBox_eq.Text.Last() == ',') return;
             calc(ref res, num1, op, num2);
             updateAllAfterCalc();
         }
@@ -75,17 +82,17 @@ namespace calc {
         private void Form1_Load(object sender, EventArgs e) {
             int startX = textBox_eq.Left;
             int x = startX, y = textBox_eq.Bottom;
-            for (int i = 1; i < 10; i++) {
+            for (int i = 0; i < 10; i++) {
                 Button button = new Button();
                 Controls.Add(button);
                 button.Text = i.ToString();
                 button.Size = new Size(50, 50);
                 button.Location = new Point(x, y);
-                button.BackColor = Color.Orange;
-                button.MouseLeave += MouseLeave;
-                button.MouseEnter += MouseEnter;
                 button.Click += onClickNumber;
-                if (i % 3 == 0) {
+                if (i == 0) {
+                    button.Location = new Point(textBox_eq.Width / 3, button.Height * 4 - 12);
+                }
+                else if (i % 3 == 0) {
                     y += button.Height;
                     x = startX;
                 }
@@ -93,15 +100,6 @@ namespace calc {
                     x += button.Width;
                 }
             }
-            Button button0 = new Button();
-            Controls.Add(button0);
-            button0.Text = "0";
-            button0.Size = new Size(50, 50);
-            button0.Location = new Point(textBox_eq.Width / 3, y);
-            button0.BackColor = Color.Orange;
-            button0.MouseLeave += MouseLeave;
-            button0.MouseEnter += MouseEnter;
-            button0.Click += onClickNumber;
 
             char[] opSymbols = {'+', '-', '*', '/'};
             x = startX + 175;
@@ -112,10 +110,7 @@ namespace calc {
                 button.Text = opSymbols[i].ToString();
                 button.Size = new Size(50, 50);
                 button.Location = new Point(x, y);
-                button.BackColor = Color.Orange;
                 button.Click += onClickOp;
-                button.MouseLeave += MouseLeave;
-                button.MouseEnter += MouseEnter;
                 y += button.Height;
             }
             Button Button_equal = new Button();
@@ -123,10 +118,22 @@ namespace calc {
             Button_equal.Text = "=";
             Button_equal.Size = new Size(50, 70);
             Button_equal.Location = new Point(x + 70, y / 3);
-            Button_equal.BackColor = Color.Orange;
             Button_equal.Click += onClickEqual;
-            Button_equal.MouseLeave += MouseLeave;
-            Button_equal.MouseEnter += MouseEnter;
+
+            Button Button_dot = new Button();
+            Controls.Add(Button_dot);
+            Button_dot.Text = ",";
+            Button_dot.Size = new Size(50, 50);
+            Button_dot.Location = new Point(Button_equal.Left, y - Button_dot.Height);
+            Button_dot.Click += onClickDot;
+
+            Button[] buttons = Controls.OfType<Button>().ToArray();
+            for (int i = 0; i < buttons.Length; i++) {
+                buttons[i].MouseLeave += MouseLeave;
+                buttons[i].MouseEnter += MouseEnter;
+                buttons[i].BackColor = Color.Orange;
+                buttons[i].Font = new Font("Microsoft Sans Serif", 14);
+            }
         }
 
     }
