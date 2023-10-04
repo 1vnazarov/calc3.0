@@ -90,7 +90,7 @@ namespace calc {
                 button.Location = new Point(x, y);
                 button.Click += onClickNumber;
                 if (i == 0) {
-                    button.Location = new Point(textBox_eq.Width / 3, button.Height * 4 - 12);
+                    button.Location = new Point(textBox_eq.Width / 3, button.Height * 4 - 8);
                 }
                 else if (i % 3 == 0) {
                     y += button.Height;
