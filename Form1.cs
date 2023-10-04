@@ -27,15 +27,13 @@ namespace calc {
         }
 
         bool isNum1;
-        string num1;
-        string num2;
-        char op;
+        string num1, num2, op;
         double res;
         void init(object sender, EventArgs e) {
             isNum1 = true;
             num1 = "";
             num2 = "";
-            op = ' ';
+            op = "";
             res = 0;
             textBox_eq.Text = "";
         }
@@ -70,14 +68,14 @@ namespace calc {
             button.ForeColor = Color.Black;
         }
         
-        void calc(ref double res, string num1, char op, string num2) {
+        void calc(ref double res, string num1, string op, string num2) {
             //MessageBox.Show("num1 = " + num1 + " num2 = " + num2);
             double a = Convert.ToDouble(num1), b = Convert.ToDouble(num2);
             switch (op) {
-                case '+': res = a + b; break;
-                case '-': res = a - b; break;
-                case '*': res = a * b; break;
-                case '/': res = a / b; break;
+                case "+": res = a + b; break;
+                case "-": res = a - b; break;
+                case "*": res = a * b; break;
+                case "/": res = a / b; break;
             }
         }
 
@@ -92,7 +90,7 @@ namespace calc {
         void onClickOp(object sender, EventArgs e) {
             if (textBox_eq.Text.Length == 0 || textBox_eq.Text.Last() == ',') return;
             Button button = (Button)sender;
-            op = Convert.ToChar(button.Text);
+            op = button.Text;
             isNum1 = false;
             if (double.TryParse(num1, out _) && double.TryParse(num2, out _)) {
                 calc(ref res, num1, op, num2);
@@ -131,13 +129,13 @@ namespace calc {
                 }
             }
 
-            char[] opSymbols = {'+', '-', '*', '/'};
+            string[] opSymbols = {"+", "-", "*", "/"};
             x = startX + 175;
             y = textBox_eq.Bottom;
             for (int i = 0; i < opSymbols.Length; i++) {
                 Button button = new Button();
                 Controls.Add(button);
-                button.Text = opSymbols[i].ToString();
+                button.Text = opSymbols[i];
                 button.Size = new Size(50, 50);
                 button.Location = new Point(x, y);
                 button.Click += onClickOp;
