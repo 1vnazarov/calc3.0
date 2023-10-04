@@ -43,6 +43,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(328, 450);
             this.Controls.Add(this.textBox_eq);
+            this.MaximumSize = new System.Drawing.Size(344, 489);
             this.Name = "Form1";
             this.Text = "Калькулятор";
             this.Load += new System.EventHandler(this.Form1_Load);
