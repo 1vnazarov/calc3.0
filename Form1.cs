@@ -22,6 +22,20 @@ namespace calc {
                 num2 += button.Text;
             }
         }
+
+        void MouseEnter(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            button.BackColor = Color.Black;
+            button.ForeColor = Color.White;
+        }
+
+        void MouseLeave(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            button.BackColor = Color.Orange;
+            button.ForeColor = Color.Black;
+        }
         
         void calc(ref double res, string num1, char op, string num2) {
             //MessageBox.Show("num1 = " + num1 + " num2 = " + num2);
@@ -67,6 +81,9 @@ namespace calc {
                 button.Text = i.ToString();
                 button.Size = new Size(50, 50);
                 button.Location = new Point(x, y);
+                button.BackColor = Color.Orange;
+                button.MouseLeave += MouseLeave;
+                button.MouseEnter += MouseEnter;
                 button.Click += onClickNumber;
                 if (i % 3 == 0) {
                     y += button.Height;
@@ -81,6 +98,9 @@ namespace calc {
             button0.Text = "0";
             button0.Size = new Size(50, 50);
             button0.Location = new Point(textBox_eq.Width / 3, y);
+            button0.BackColor = Color.Orange;
+            button0.MouseLeave += MouseLeave;
+            button0.MouseEnter += MouseEnter;
             button0.Click += onClickNumber;
 
             char[] opSymbols = {'+', '-', '*', '/'};
@@ -92,7 +112,10 @@ namespace calc {
                 button.Text = opSymbols[i].ToString();
                 button.Size = new Size(50, 50);
                 button.Location = new Point(x, y);
+                button.BackColor = Color.Orange;
                 button.Click += onClickOp;
+                button.MouseLeave += MouseLeave;
+                button.MouseEnter += MouseEnter;
                 y += button.Height;
             }
             Button Button_equal = new Button();
@@ -100,7 +123,15 @@ namespace calc {
             Button_equal.Text = "=";
             Button_equal.Size = new Size(50, 70);
             Button_equal.Location = new Point(x + 70, y / 3);
+            Button_equal.BackColor = Color.Orange;
             Button_equal.Click += onClickEqual;
+            Button_equal.MouseLeave += MouseLeave;
+            Button_equal.MouseEnter += MouseEnter;
+        }
+
+        private void Button0_MouseLeave(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
