@@ -152,9 +152,5 @@ namespace calc {
                 buttons[i].Font = new Font("Microsoft Sans Serif", 14);
             }
         }
-
-        private void Button_C_Click(object sender, EventArgs e) {
-            throw new NotImplementedException();
-        }
     }
 }
