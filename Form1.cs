@@ -129,9 +129,5 @@ namespace calc {
             Button_equal.MouseEnter += MouseEnter;
         }
 
-        private void Button0_MouseLeave(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
